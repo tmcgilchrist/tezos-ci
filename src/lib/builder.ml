@@ -97,11 +97,12 @@ let make_ocluster mode ocluster =
 let gate ~gate t = { t with gates = gate :: t.gates }
 let manual t = { t with manual = true }
 
-type pool = Arm64 | X86_64
+type pool = Arm64 | X86_64 | S390x
 
 let pool_to_string = function
   | Arm64 -> "linux-arm64"
   | X86_64 -> "linux-x86_64"
+  | S390x -> "linux-s390x"
 
 (* TODO: default to host's pool *)
 let build ?context ?(pool = X86_64) ~label t spec =

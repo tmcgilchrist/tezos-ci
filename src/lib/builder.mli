@@ -3,7 +3,7 @@ type t
 val make_docker : t
 val make_ocluster : [ `Docker | `Obuilder ] -> Current_ocluster.t -> t
 
-type pool = Arm64 | X86_64
+type pool = Arm64 | X86_64 | S390x
 
 val gate : gate:unit Current.t -> t -> t
 val manual : t -> t

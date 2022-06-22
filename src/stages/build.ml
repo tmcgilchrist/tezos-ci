@@ -75,6 +75,10 @@ let v (tezos_repository : Analysis.Tezos_repository.t) =
         run "find /dist";
       ])
 
+let s390x ~builder (analysis : Analysis.Tezos_repository.t Current.t) =
+  Current.map v analysis
+  |> Lib.Builder.build ~pool:S390x ~label:"build:arm64" builder
+
 let arm64 ~builder (analysis : Analysis.Tezos_repository.t Current.t) =
   Current.map v analysis
   |> Lib.Builder.build ~pool:Arm64 ~label:"build:arm64" builder

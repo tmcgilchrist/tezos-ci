@@ -56,6 +56,7 @@ type mode =
   | Opam_packaging
   | Development_coverage
   | Development_arm64
+  | Development_s390x
   | Commit_tag_is_version
   | Always
 
@@ -95,9 +96,15 @@ let should_run mode source =
   | Development_documentation, _ -> No
   | Development_coverage, Schedule _ -> Yes
   | Development_coverage, _ -> Manual
+
   | Development_arm64, Schedule _ -> Yes
   | Development_arm64, v when branch_or_mr_source_branch_match "arm64" v -> Yes
   | Development_arm64, _ -> Manual
+
+  | Development_s390x, Schedule _ -> Yes
+  | Development_s390x, v when branch_or_mr_source_branch_match "arm64" v -> Yes
+  | Development_s390x, _ -> Manual
+
   | Opam_packaging, Branch "master"
   | Opam_packaging, Merge_request _
   | Opam_packaging, Schedule _ ->
@@ -116,6 +123,7 @@ let stages =
       [
         (Development, "x86_64", Build.x86_64);
         (Development_arm64, "arm64", Build.arm64);
+        (Development_s390x, "s390x", Build.s390x);
         (Development, "doc", Doc.build);
       ] );
     ( "sanity_ci",
